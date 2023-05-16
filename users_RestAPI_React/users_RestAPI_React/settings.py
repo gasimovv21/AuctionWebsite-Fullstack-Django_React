@@ -1,3 +1,6 @@
+import os
+
+
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -6,9 +9,11 @@ SECRET_KEY = 'django-insecure-=7sgtd4t%ytbb5#kqcn$#ebl72@matb%1l-4lzn@4z%#%=&bq%
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', '127.0.0.1:8000']
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3030',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -21,6 +26,15 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+        # другие разрешения
+    ],
+    # другие настройки
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -38,7 +52,9 @@ ROOT_URLCONF = 'users_RestAPI_React.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'frontend/build'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,7 +101,14 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'frontend/build/static')
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'frontend/build/static'
+]
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
