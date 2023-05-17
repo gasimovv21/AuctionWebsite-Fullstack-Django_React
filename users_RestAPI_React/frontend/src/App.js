@@ -10,7 +10,7 @@ import UsersListPage from './pages/UsersListPage';
 
 function App() {
   return (
-    <Router>
+    <Router >
       <div className="container dark">
         <div className="app">
           <Header />
