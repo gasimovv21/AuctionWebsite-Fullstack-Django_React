@@ -64,8 +64,8 @@ a {
 
 .app {
   width: 100%;
-  max-width: 480px;
-  height: 88vh;
+  /* max-width: 1000px; */
+  height: 100vh;
   margin: 0 auto;
   background-color: var(--color-white);
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.05);
@@ -236,6 +236,7 @@ a {
   height: 10vh;
   resize: none;
   scrollbar-width: none; /* Firefox */
+  border-bottom: solid 1px #252629;
 }
 
 .user .user-info-header{
@@ -245,7 +246,7 @@ a {
 .user textarea:active,
 .user textarea:focus {
   outline: none;
-  border-bottom: solid 1px #ffffff;;
+  border-bottom: solid 1px #ffffff;
 }
 
 .user textarea::-webkit-scrollbar {
