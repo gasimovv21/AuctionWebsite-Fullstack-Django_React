@@ -45,7 +45,12 @@ def getOwnerUsersList(request):
         err = 'Error in process of getting users: ' + str(response.status_code)
         print(err)
         return Response({'error': err}, status=500)
-    
+
+
+def getUsersList(request):
+    users = User.objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
 
 def getItemsList(request):
     items = ItemInAuction.objects.all().order_by('-updated_at')
@@ -56,9 +61,9 @@ def getItemsList(request):
 def createItem(request):
     data = request.data
     
-    item_owner_name = data['item_owner']
+    item_owner = data['item_owner']
     try:
-        item_owner = get_object_or_404(User, name=item_owner_name)
+        item_owner = get_object_or_404(User, name=item_owner)
     except Http404:
         return Response(f"Item owner not found. Check which users is available: http://127.0.0.1:8001/api/owner_users/", status=status.HTTP_404_NOT_FOUND)
     try:
@@ -86,8 +91,10 @@ def updateItem(request, pk):
 
     if serializer.is_valid():
         serializer.save()
+        return Response(serializer.data)
+    else:
+        return Response(serializer.errors)
 
-    return Response(serializer.data)
 
 
 def deleteItem(request, pk):

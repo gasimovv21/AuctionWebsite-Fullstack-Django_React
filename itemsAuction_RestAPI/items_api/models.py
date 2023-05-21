@@ -38,15 +38,17 @@ class ItemInAuction(models.Model):
     )
     item_owner = models.ForeignKey(
         User,
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         related_name='items',
-        verbose_name='Owner name',
+        verbose_name='Owner',
         help_text='Determine which user the item belongs to.',
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
 
     def __str__(self):
         return self.name

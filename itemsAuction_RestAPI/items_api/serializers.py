@@ -1,18 +1,12 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from .models import User, ItemInAuction
 
 
-class ItemSerializer(ModelSerializer):
+class ItemSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = ItemInAuction
-        fields = [
-            'id',
-            'name',
-            'price',
-            'item_owner',
-            'created_at',
-            'updated_at'
-        ]
+        fields = '__all__'
     
     # def to_representation(self, instance):
     #     rep = super(ItemSerializer, self).to_representation(instance)
@@ -20,7 +14,7 @@ class ItemSerializer(ModelSerializer):
     #     return rep
 
 
-class UserSerializer(ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'

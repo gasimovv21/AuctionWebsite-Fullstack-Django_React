@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 from .models import User
 from .utils import (
     getOwnerUsersList,
+    getUsersList,
     getItemsList,
     createItem,
     getItemDetail,
@@ -34,7 +35,13 @@ def getRoutes(request):
 def getOwnerUsers(request):
     if request.method == 'GET':
         return getOwnerUsersList(request)
-    
+
+
+@api_view(['GET'])
+def getUsers(request):
+    if request.method == 'GET':
+        return getUsersList(request)
+
 
 @api_view(['GET', 'POST'])
 def getItems(request):
