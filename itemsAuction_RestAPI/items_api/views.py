@@ -4,7 +4,15 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from .models import User
-from .utils import getOwnerUsersList
+from .utils import (
+    getOwnerUsersList,
+    getItemsList,
+    createItem,
+    getItemDetail,
+    updateItem,
+    deleteItem
+)
+
 
 
 @api_view(['GET'])
@@ -26,3 +34,25 @@ def getRoutes(request):
 def getOwnerUsers(request):
     if request.method == 'GET':
         return getOwnerUsersList(request)
+    
+
+@api_view(['GET', 'POST'])
+def getItems(request):
+    if request.method == 'GET':
+        return getItemsList(request)
+    
+    if request.method == 'POST':
+        return createItem(request)
+    
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def getItem(request, pk):
+    
+    if request.method == 'GET':
+        return getItemDetail(request, pk)
+    
+    if request.method == 'PUT':
+        return updateItem(request, pk)
+    
+    if request.method == 'DELETE':
+        return deleteItem(request, pk)

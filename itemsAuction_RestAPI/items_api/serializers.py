@@ -13,6 +13,11 @@ class ItemSerializer(ModelSerializer):
             'created_at',
             'updated_at'
         ]
+    
+    # def to_representation(self, instance):
+    #     rep = super(ItemSerializer, self).to_representation(instance)
+    #     rep['item_owner'] = instance.item_owner.name
+    #     return rep
 
 
 class UserSerializer(ModelSerializer):

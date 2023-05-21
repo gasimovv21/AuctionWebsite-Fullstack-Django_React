@@ -31,6 +31,7 @@ class ItemInAuction(models.Model):
     name = models.TextField(
         verbose_name="Item name",
         max_length=settings.ITEM_NAME_MAX_LENGHT,
+        unique=True,
     )
     price = models.PositiveIntegerField(
         verbose_name="Price of item"
