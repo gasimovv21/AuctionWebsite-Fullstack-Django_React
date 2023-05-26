@@ -14,10 +14,14 @@ def getOwnerUsersList(request):
     response = requests.get(url)
 
     if response.status_code == 200:
-        users = response.json()
+        users_data = response.json()
+        existing_emails = User.objects.values_list('email', flat=True)
 
-        for user_data in users:
-            existing_user = User.objects.filter(email=user_data['email']).first()
+        User.objects.exclude(email__in=[user_data['email'] for user_data in users_data]).delete()
+
+        for user_data in users_data:
+            email = user_data['email']
+            existing_user = User.objects.filter(email=email).first()
 
             if existing_user:
                 if existing_user.name != user_data['name']:
@@ -33,16 +37,18 @@ def getOwnerUsersList(request):
             else:
                 user = User(
                     name=user_data['name'],
-                    email=user_data['email'],
+                    email=email,
                     created_at=user_data['created_at'],
                     updated_at=user_data['updated_at'],
                 )
                 user.save()
+
+        users = User.objects.filter(email__in=[user_data['email'] for user_data in users_data])
         serializer = UserSerializer(users, many=True)
 
         return Response(serializer.data)
     else:
-        err = 'Error in process of getting users: ' + str(response.status_code)
+        err = 'Error in the process of getting users: ' + str(response.status_code)
         print(err)
         return Response({'error': err}, status=500)
 

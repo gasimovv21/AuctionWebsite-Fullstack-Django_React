@@ -2,7 +2,7 @@ import requests
 
 from django.db import models
 from django.conf import settings
-from django.core.validators import MinLengthValidator
+from django.core.validators import MinLengthValidator, MinValueValidator
 
 
 class User(models.Model):
@@ -33,7 +33,11 @@ class ItemInAuction(models.Model):
         max_length=settings.ITEM_NAME_MAX_LENGHT,
         unique=True,
     )
-    price = models.PositiveIntegerField(
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        validators=[MinValueValidator(1)],
         verbose_name="Price of item"
     )
     item_owner = models.ForeignKey(
@@ -52,3 +56,6 @@ class ItemInAuction(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# Done by Recep Enes Karatekin

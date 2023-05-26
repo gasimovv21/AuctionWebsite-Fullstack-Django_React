@@ -49,3 +49,6 @@ class ItemAdmin(admin.ModelAdmin):
         'updated_at',
     )
     empty_value_display = '-empty-'
+
+
+# Done by Recep Enes Karatekin

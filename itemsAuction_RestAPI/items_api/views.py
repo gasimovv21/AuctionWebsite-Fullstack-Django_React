@@ -1,9 +1,6 @@
-import requests
-from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .models import User
 from .utils import (
     getOwnerUsersList,
     getUsersList,
@@ -50,7 +47,7 @@ def getItems(request):
     
     if request.method == 'POST':
         return createItem(request)
-    
+
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def getItem(request, pk):
