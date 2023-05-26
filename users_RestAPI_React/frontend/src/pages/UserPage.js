@@ -16,16 +16,15 @@ const UserPage = ({ match, history }) => {
         if (userId === 'new') return
 
 
-        let reponse = await fetch(`/api/users/${userId}`)
+        let reponse = await fetch(`api-users/users/${userId}`)
         let data = await reponse.json()
         setUser(data)
     }
 
-
     let updateUser = async () => {
         const csrftoken = Cookies.get('csrftoken');
     
-        fetch(`/api/users/${userId}/update/`, {
+        fetch(`api-users/users/${userId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -38,7 +37,7 @@ const UserPage = ({ match, history }) => {
     let createUser = async () => {
         const csrftoken = Cookies.get('csrftoken');
 
-        fetch(`/api/users/create/`, {
+        fetch(`api-users/users/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -47,27 +46,27 @@ const UserPage = ({ match, history }) => {
             body:JSON.stringify(user)
             
         })
-        history.push('/')
+        history.push('/users')
     }
 
 
     let deleteUser = async () => {
         const csrftoken = Cookies.get('csrftoken');
 
-        fetch(`/api/users/${userId}/delete/`, {
+        fetch(`api-users/users/${userId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken,
             }
         })
-        history.push('/')
+        history.push('/users')
     }
 
 
     let handleSubmit = () => {
         updateUser()
-        history.push('/')
+        history.push('/users')
     }
 
 

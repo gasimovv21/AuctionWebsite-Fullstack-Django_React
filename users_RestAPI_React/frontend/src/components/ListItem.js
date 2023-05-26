@@ -8,7 +8,7 @@ let getTime = (user) => {
 
 const ListItem = ({user}) => {
     return (
-        <Link to={`/user/${user.id}`}>
+        <Link to={`user/${user.id}`}>
             <div className='users-list-item'>
                 <h3>{user.name}</h3>
                 <p>

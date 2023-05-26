@@ -198,6 +198,18 @@ a {
 =>  user Styles
 ================================*/
 
+.btn-redirect{
+  right: 50px;
+  top: 15px;
+  width: 100px;
+  font-size: large;
+  text-align: center;
+  background-color: #f68657;
+  position: absolute;
+  color:white;
+  border-radius: 5px;
+}
+
 .user-header {
   display: flex;
   align-items: center;

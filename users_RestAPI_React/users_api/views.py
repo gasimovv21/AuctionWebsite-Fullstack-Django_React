@@ -1,55 +1,65 @@
-from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import User
-from .serializers import UserSerializer
+from .utils import (
+    getUserDetail,
+    updateUser,
+    deleteUser,
+    getUsersList,
+    createUser
+)
 
 
 @api_view(['GET'])
 def getRoutes(request):
-    return Response('Our API')
+    routes = [
+        {
+            'Endpoint': '/users/',
+            'method': [
+                'GET',
+                'POSTS'
+            ],
+            'body': None,
+            'description':  [
+                'Retrieving all users => GET',
+                'Adding a user => POST'
+            ]
+        },
+        {
+            'Endpoint': 'users/id',
+            'method': [
+                'GET',
+                'PUT',
+                'DELETE'
+            ],
+            'body': None,
+            'description':  [
+                'Retrieving user information => GET',
+                'Editing a user => PUT',
+                'Deleting a user => DELETE'
+            ]
+        },
+    ]
+    return Response(routes)
 
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def getUsers(request):
-    users = User.objects.all().order_by('-updated_at')
-    serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
+    if request.method == 'GET':
+        return getUsersList(request)
+    
+    if request.method == 'POST':
+        return createUser(request)
 
 
-@api_view(['POST'])
-def createUser(request):
-    data = request.data
-    user = User.objects.create(
-        name = data['name'],
-        email = data['email']
-    )
-    serializer = UserSerializer(user, many=False)
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def getUser(request, pk):
-    users = User.objects.get(id=pk)
-    serializer = UserSerializer(users, many=False)
-    return Response(serializer.data)
-
-
-@api_view(['PUT'])
-def updateUser(request, pk):
-    data = request.data
-    user = User.objects.get(id=pk)
-    serializer = UserSerializer(instance=user, data=data)
-
-    if serializer.is_valid():
-        serializer.save()
-
-    return Response(serializer.data)
-
-
-@api_view(['DELETE'])
-def deleteUser(request, pk):
-    user = User.objects.get(id=pk)
-    user.delete()
-    return Response('User was deleted sucessfully!')
+    
+    if request.method == 'GET':
+        return getUserDetail(request, pk)
+    
+    if request.method == 'PUT':
+        return updateUser(request, pk)
+    
+    if request.method == 'DELETE':
+        return deleteUser(request, pk)

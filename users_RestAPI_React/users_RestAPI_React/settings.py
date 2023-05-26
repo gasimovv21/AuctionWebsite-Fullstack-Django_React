@@ -1,6 +1,5 @@
 import os
 
-
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,11 +8,16 @@ SECRET_KEY = 'django-insecure-=7sgtd4t%ytbb5#kqcn$#ebl72@matb%1l-4lzn@4z%#%=&bq%
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*', '127.0.0.1:8000']
+ALLOWED_HOSTS = [
+    '*',
+    '127.0.0.1:8000'
+    ]
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3030',
+    'http://128.0.0.1:8001',
 ]
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -30,9 +34,7 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-        # другие разрешения
     ],
-    # другие настройки
 }
 
 

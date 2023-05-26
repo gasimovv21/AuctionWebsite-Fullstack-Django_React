@@ -12,7 +12,7 @@ const UsersListPage = () => {
 
 
     let getUsers = async () => {
-        let response = await fetch('/api/users/')
+        let response = await fetch('/api-users/users/')
         let data = await response.json()
         console.log('DATA:', data)
         setUsers(data)
@@ -22,6 +22,7 @@ const UsersListPage = () => {
         <div className='users'>
             <div className='users-header'>
                 <h2 className='users-title'>&#9782; Users</h2>
+                <a className='btn-redirect' href='http://localhost:3000/#/items'>Auction</a>
                 <p className='users-count'>{users.length}</p>
             </div>
 
